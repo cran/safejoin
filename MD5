@@ -1,0 +1,14 @@
+36e5f706c7d9efbc6fe258e8acd228d5 *DESCRIPTION
+e00575ea35a65ad7168d588cd0285c99 *LICENSE
+636cee274237f4f0628b59012bd92176 *NAMESPACE
+290cd58fc1b939b25c490f9460fb383a *NEWS.md
+c24441f7e107867a5d6a88038ac49fd3 *R/safe_left_join.R
+43342fa820759284884d680587306016 *README.md
+d23957efa38d1ce4ebf46d00498cfa09 *build/vignette.rds
+ee92beaac69dede173be48e5a7184b63 *inst/doc/motivation-for-safejoin.R
+e67239548f118bfe75e731e092f6307a *inst/doc/motivation-for-safejoin.Rmd
+21a77a75b8ff4d0ceff3180a63ece019 *inst/doc/motivation-for-safejoin.html
+4f0cfd6383c406bc81df26f5bf01f628 *man/safe_left_join.Rd
+2d18a3629be13aef7614e14d64f5b718 *tests/testthat.R
+2882866defbe92094b6d093ad3abef18 *tests/testthat/test-safe_left_join.R
+e67239548f118bfe75e731e092f6307a *vignettes/motivation-for-safejoin.Rmd
