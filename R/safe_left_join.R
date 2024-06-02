@@ -3,6 +3,7 @@
 #' @export
 #' 
 #' @description 
+#' `r lifecycle::badge('deprecated')`
 #' Perform a "safe" left join where it is guaranteed that no additional rows are
 #' added to the left hand side table. For more information on left joins see 
 #' (\code{\link[dplyr:left_join]{dplyr::left_join}}).
@@ -38,6 +39,8 @@
 #' safe_left_join(x, y, action = "warning")
 #' safe_left_join(x, y, action = "message")
 safe_left_join <- function(..., action = "error", relationship = "*:1") {
+  # Warn user about deprecation
+  lifecycle::deprecate_warn("0.2.0", "safe_left_join(relationship = 'relationship-type')", "dplyr::left_join()")
 
   # Validate parameters
   action_options <- c("error", "warning", "message")

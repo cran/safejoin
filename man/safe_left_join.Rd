@@ -10,29 +10,37 @@ safe_left_join(..., action = "error", relationship = "*:1")
 \item{...}{
   Arguments passed on to \code{\link[dplyr:mutate-joins]{dplyr::left_join}}
   \describe{
-    \item{\code{x}}{A pair of data frames, data frame extensions (e.g. a tibble), or
+    \item{\code{x,y}}{A pair of data frames, data frame extensions (e.g. a tibble), or
 lazy data frames (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
 more details.}
-    \item{\code{y}}{A pair of data frames, data frame extensions (e.g. a tibble), or
-lazy data frames (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
-more details.}
-    \item{\code{by}}{A character vector of variables to join by.
+    \item{\code{by}}{A join specification created with \code{\link[dplyr:join_by]{join_by()}}, or a character
+vector of variables to join by.
 
 If \code{NULL}, the default, \verb{*_join()} will perform a natural join, using all
-variables in common across \code{x} and \code{y}. A message lists the variables so that you
-can check they're correct; suppress the message by supplying \code{by} explicitly.
+variables in common across \code{x} and \code{y}. A message lists the variables so
+that you can check they're correct; suppress the message by supplying \code{by}
+explicitly.
 
-To join by different variables on \code{x} and \code{y}, use a named vector.
-For example, \code{by = c("a" = "b")} will match \code{x$a} to \code{y$b}.
+To join on different variables between \code{x} and \code{y}, use a \code{\link[dplyr:join_by]{join_by()}}
+specification. For example, \code{join_by(a == b)} will match \code{x$a} to \code{y$b}.
 
-To join by multiple variables, use a vector with length > 1.
-For example, \code{by = c("a", "b")} will match \code{x$a} to \code{y$a} and \code{x$b} to
-\code{y$b}. Use a named vector to match different variables in \code{x} and \code{y}.
-For example, \code{by = c("a" = "b", "c" = "d")} will match \code{x$a} to \code{y$b} and
-\code{x$c} to \code{y$d}.
+To join by multiple variables, use a \code{\link[dplyr:join_by]{join_by()}} specification with
+multiple expressions. For example, \code{join_by(a == b, c == d)} will match
+\code{x$a} to \code{y$b} and \code{x$c} to \code{y$d}. If the column names are the same between
+\code{x} and \code{y}, you can shorten this by listing only the variable names, like
+\code{join_by(a, c)}.
 
-To perform a cross-join, generating all combinations of \code{x} and \code{y},
-use \code{by = character()}.}
+\code{\link[dplyr:join_by]{join_by()}} can also be used to perform inequality, rolling, and overlap
+joins. See the documentation at \link[dplyr:join_by]{?join_by} for details on
+these types of joins.
+
+For simple equality joins, you can alternatively specify a character vector
+of variable names to join by. For example, \code{by = c("a", "b")} joins \code{x$a}
+to \code{y$a} and \code{x$b} to \code{y$b}. If variable names differ between \code{x} and \code{y},
+use a named character vector like \code{by = c("x_a" = "y_a", "x_b" = "y_b")}.
+
+To perform a cross-join, generating all combinations of \code{x} and \code{y}, see
+\code{\link[dplyr:cross_join]{cross_join()}}.}
     \item{\code{copy}}{If \code{x} and \code{y} are not from the same data source,
 and \code{copy} is \code{TRUE}, then \code{y} will be copied into the
 same src as \code{x}.  This allows you to join tables across srcs, but
@@ -41,23 +49,33 @@ it is a potentially expensive operation so you must opt into it.}
 \code{y}, these suffixes will be added to the output to disambiguate them.
 Should be a character vector of length 2.}
     \item{\code{keep}}{Should the join keys from both \code{x} and \code{y} be preserved in the
-output?}
+output?
+\itemize{
+\item If \code{NULL}, the default, joins on equality retain only the keys from \code{x},
+while joins on inequality retain the keys from both inputs.
+\item If \code{TRUE}, all keys from both inputs are retained.
+\item If \code{FALSE}, only keys from \code{x} are retained. For right and full joins,
+the data in key columns corresponding to rows that only exist in \code{y} are
+merged into the key columns from \code{x}. Can't be used when joining on
+inequality conditions.
+}}
   }}
 
 \item{action}{What should happen when the number of rows changes from a join?
 Options include: 'error', 'warning', or 'message'. By default 'error'.}
 
-\item{relationship}{What is the expected relationship between `x` and `y`?
+\item{relationship}{What is the expected relationship between \code{x} and \code{y}?
 At this time the only available option is '*:1', indicating a many to one
-relationship between `x` and `y`. In the future more options may be added.}
+relationship between \code{x} and \code{y}. In the future more options may be added.}
 }
 \value{
-An object of the same type as `x`. The order of the rows and columns of `x`
+An object of the same type as \code{x}. The order of the rows and columns of \code{x}
 is preserved as much as possible. The output has the following properties:
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 Perform a "safe" left join where it is guaranteed that no additional rows are
-added to the left hand side table. For more information on left joins see 
+added to the left hand side table. For more information on left joins see
 (\code{\link[dplyr:left_join]{dplyr::left_join}}).
 }
 \examples{

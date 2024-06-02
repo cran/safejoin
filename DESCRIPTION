@@ -1,6 +1,6 @@
 Package: safejoin
 Title: Perform "Safe" Table Joins
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person(given = "Sam",
            family = "Edwardes",
@@ -9,16 +9,14 @@ Authors@R:
 Description: The goal of 'safejoin' is to guarantee that when performing joins extra rows are not added to your data. 'safejoin' provides a wrapper around 'dplyr::left_join' that will raise an error when extra rows are unexpectedly added to your data. This can be useful when working with data where you expect there to be a many to one relationship but you are not certain the relationship holds.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: false
 Suggests: testthat, knitr, rmarkdown
-Imports: dplyr, glue
-RoxygenNote: 7.1.1
+Imports: dplyr, glue, lifecycle
+RoxygenNote: 7.2.3
 URL: https://github.com/SamEdwardes/safejoin
 BugReports: https://github.com/SamEdwardes/safejoin/issues
-VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2021-04-20 13:27:30 UTC; samedwardes
+Packaged: 2024-06-02 20:39:36 UTC; samedwardes
 Author: Sam Edwardes [aut, cre]
 Maintainer: Sam Edwardes <edwardes.s@gmail.com>
 Repository: CRAN
-Date/Publication: 2021-04-26 07:30:02 UTC
+Date/Publication: 2024-06-02 21:10:03 UTC
